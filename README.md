@@ -17,7 +17,7 @@ This library currently contains the following widgets:
 - Comment Count (single)
 - Comment Widget
 - Image Chat
-- Live Chat
+- Streaming Chat
 - User Activity Feed
 
 ## Developing
