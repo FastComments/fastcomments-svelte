@@ -13,12 +13,21 @@ TypeScript has been used so that you can inspect the config objects for each wid
 
 This library currently contains the following widgets:
 
-- Collab Chat
-- Comment Count (single)
-- Comment Widget
-- Image Chat
-- Streaming Chat
-- User Activity Feed
+- [Collab Chat](./src/lib/CollabChatWidget.svelte)
+- [Comment Count (single)](./src/lib/CommentCountWidget.svelte)
+- [Comment Widget](./src/lib/CommentWidget.svelte)
+- [Image Chat](./src/lib/ImageChatWidget.svelte)
+- [Streaming Chat](./src/lib/StreamingChatWidget.svelte)
+- [User Activity Feed](./src/lib/UserActivityFeedWidget.svelte)
+
+It also features examples for:
+
+- [Callbacks](./src/routes/callbacks-example/+page.svelte)
+- [Dark Mode](./src/routes/dark-mode-example/+page.svelte)
+- [EU](./src/routes/eu-example/+page.svelte)
+- [Paginating Products or Blog Posts](./src/routes/paginated-example/+page.svelte)
+- [Secure SSO](./src/routes/secure-sso-example/+page.svelte)
+- [Simple SSO](./src/routes/simple-sso-example/+page.svelte)
 
 ## Developing
 
