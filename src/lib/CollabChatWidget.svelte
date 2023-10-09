@@ -10,8 +10,9 @@
   let componentConfig: JSComponentConfig = {
     name: "fastcomments-collab-chat-widget",
     windowName: "FastCommentsCollabChat",
-    src: config.region === "eu" ? "https://cdn-eu.fastcomments.com/js/embed-collab-chat.min.js" : "https://cdn.fastcomments.com/js/embed-collab-chat.min.js",
-    widgetConfig: config
+    src: config.region === "eu" ? "https://cdn-eu.fastcomments.com/js/embed-collab-chat.min.js" : "http://localhost:3001/js/embed-collab-chat.min.js",
+    widgetConfig: config,
+    waitForCustomTarget: true
   };
 
   // Use a reactive assignment to update componentConfig when config changes

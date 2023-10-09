@@ -2,13 +2,14 @@ function loadWidget(target: HTMLElement, config: JSComponentConfig) {
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   if (target.fastCommentsWidgetInstance) {
+
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     target.fastCommentsWidgetInstance.destroy();
   }
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
-  target.fastCommentsWidgetInstance = window[config.windowName](target, config.widgetConfig); // TODO customize
+  target.fastCommentsWidgetInstance = window[config.windowName](target, config.widgetConfig);
 }
 
 function mountComponent(target: HTMLElement, config: JSComponentConfig) {
@@ -33,12 +34,15 @@ export interface JSComponentConfig {
   src: string;
   windowName: string;
   widgetConfig: unknown;
+  waitForCustomTarget?: true;
   customTarget?: HTMLElement;
 }
 
 export default function JSComponent(node: HTMLElement, config: JSComponentConfig) {
   const target = config.customTarget ? config.customTarget : node;
-  mountComponent(target, config);
+  if (!config.waitForCustomTarget || target) {
+    mountComponent(target, config);
+  }
 
   return {
     update(newConfig: JSComponentConfig) {

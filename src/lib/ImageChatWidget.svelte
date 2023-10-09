@@ -11,7 +11,8 @@
     name: "fastcomments-image-chat-widget",
     windowName: "FastCommentsImageChat",
     src: config.region === "eu" ? "https://cdn-eu.fastcomments.com/js/embed-image-chat.min.js" : "https://cdn.fastcomments.com/js/embed-image-chat.min.js",
-    widgetConfig: config
+    widgetConfig: config,
+    waitForCustomTarget: true
   };
 
   // Use a reactive assignment to update componentConfig when config changes
