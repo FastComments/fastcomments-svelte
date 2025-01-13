@@ -11,8 +11,7 @@
 
 <script lang="ts">
   import CommentWidget from "$lib/CommentWidget.svelte";
-  import type { FastCommentsCommentWidgetConfig } from "fastcomments-typescript";
-  import type { FastCommentsSSO } from "fastcomments-typescript/src/fast-comments-comment-widget-config";
+  import type { FastCommentsCommentWidgetConfig, FastCommentsSSO } from "fastcomments-typescript";
   import { onMount } from "svelte";
 
   let config: FastCommentsCommentWidgetConfig = {
