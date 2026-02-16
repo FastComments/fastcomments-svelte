@@ -11,7 +11,7 @@
   import CommentWidget from "$lib/CommentWidget.svelte";
   import type { FastCommentsCommentWidgetConfig } from "fastcomments-typescript";
 
-  function getProductPageURLID(productId) {
+  function getProductPageURLID(productId: number) {
     return "svelt-product" + productId;
   }
 
@@ -29,8 +29,8 @@
 </script>
 <div class="controls">
   <div>Current Product ID: {productId}</div>
-  <button on:click={() => paginateProducts(-1)}>Prev Product</button>
-  <button on:click={() => paginateProducts(1)}>Next Product</button>
+  <button onclick={() => paginateProducts(-1)}>Prev Product</button>
+  <button onclick={() => paginateProducts(1)}>Next Product</button>
 </div>
 <CommentWidget config={config}></CommentWidget>
 

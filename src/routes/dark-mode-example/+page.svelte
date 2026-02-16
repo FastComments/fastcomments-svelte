@@ -20,7 +20,7 @@
 
 </script>
 <div class="wrapper {config.hasDarkBackground ? 'dark' : ''}">
-  <button on:click={toggleDarkMode}>Toggle Dark Mode</button>
+  <button onclick={toggleDarkMode}>Toggle Dark Mode</button>
   <CommentWidget config={config}></CommentWidget>
 </div>
 

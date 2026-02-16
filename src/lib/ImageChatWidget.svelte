@@ -1,35 +1,37 @@
 <script lang="ts">
-  import JSComponent from "$lib/actions.ts";
+  import JSComponent from "$lib/actions.js";
   import type { FastCommentsImageChatWidgetConfig } from "fastcomments-typescript";
   import { onMount } from "svelte";
   import type { JSComponentConfig } from "./actions.js";
+  import type { Snippet } from "svelte";
 
-  let componentRoot;
-  export let config: FastCommentsImageChatWidgetConfig;
+  interface Props {
+    config: FastCommentsImageChatWidgetConfig;
+    image?: Snippet;
+  }
+  let { config, image }: Props = $props();
 
-  let componentConfig: JSComponentConfig = {
+  let componentRoot: HTMLDivElement;
+
+  let componentConfig: JSComponentConfig = $derived({
     name: "fastcomments-image-chat-widget",
     windowName: "FastCommentsImageChat",
     src: config.region === "eu" ? "https://cdn-eu.fastcomments.com/js/embed-image-chat.min.js" : "https://cdn.fastcomments.com/js/embed-image-chat.min.js",
     widgetConfig: config,
     waitForCustomTarget: true
-  };
-
-  // Use a reactive assignment to update componentConfig when config changes
-  $: {
-    componentConfig = {
-      ...componentConfig,
-      widgetConfig: config
-    };
-  }
+  });
 
   onMount(function handleMount() {
-    componentConfig.customTarget = componentRoot.querySelector(".image-slot");
+    componentConfig.customTarget = componentRoot.querySelector(".image-slot") as HTMLElement;
   });
 </script>
 
 <div use:JSComponent={componentConfig} bind:this={componentRoot}>
-  <slot name="image" class="image-slot">
-    <img src="https://fastcomments.com/images/image-chat-demo-1.jpg" alt="A Stream" />
-  </slot>
+  <div class="image-slot">
+    {#if image}
+      {@render image()}
+    {:else}
+      <img src="https://fastcomments.com/images/image-chat-demo-1.jpg" alt="A Stream" />
+    {/if}
+  </div>
 </div>

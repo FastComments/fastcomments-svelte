@@ -16,10 +16,11 @@
 
 </script>
 <CollabChatWidget config={config}>
-  <div slot="toolbar"></div>
-  <div slot="content">
+  {#snippet toolbar()}
+  {/snippet}
+  {#snippet content()}
     This is some text that can be highlighted and discussed.
-  </div>
+  {/snippet}
 </CollabChatWidget>
 
 <style>

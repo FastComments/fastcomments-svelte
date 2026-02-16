@@ -9,7 +9,7 @@
   import UserActivityFeedWidget from "$lib/UserActivityFeedWidget.svelte";
   import type { FastCommentsCommentWidgetConfig } from "fastcomments-typescript";
 
-  export interface FastCommentsUserActivityFeedWidgetConfig extends FastCommentsCommentWidgetConfig {
+  interface FastCommentsUserActivityFeedWidgetConfig extends FastCommentsCommentWidgetConfig {
     /** With SSO, this will be tenantId + ':' + userId. With Simple SSO this will be tenantId + ':' + userEmail. **/
     userId: string;
   }
