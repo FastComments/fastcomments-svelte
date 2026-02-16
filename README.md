@@ -9,6 +9,22 @@ Then you can see all the widgets and edit them - for example to put in your own 
 
 TypeScript has been used so that you can inspect the config objects for each widget to see what options they take. 
 
+## Quick Start
+
+```svelte
+<script lang="ts">
+  import CommentWidget from "fastcomments-svelte/CommentWidget.svelte";
+  import type { FastCommentsCommentWidgetConfig } from "fastcomments-typescript";
+
+  let config: FastCommentsCommentWidgetConfig = {
+    tenantId: "demo",
+    urlId: "my-page"
+  };
+</script>
+
+<CommentWidget config={config} />
+```
+
 ## Widgets
 
 This library currently contains the following widgets:
