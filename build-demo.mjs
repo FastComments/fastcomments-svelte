@@ -16,7 +16,7 @@ const sh = (cmd, cwd = ROOT, env = {}) => {
 };
 
 sh('npm ci --legacy-peer-deps');
-sh('npx vite build', ROOT, { BUILD_DEMO: '1' });
+sh('./node_modules/.bin/vite build', ROOT, { BUILD_DEMO: '1' });
 
 rmSync(OUT, { recursive: true, force: true });
 renameSync(resolve(ROOT, 'build'), OUT);
