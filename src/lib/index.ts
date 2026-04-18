@@ -2,4 +2,8 @@ export * from "./CollabChatWidget.svelte";
 export * from "./CommentCountWidget.svelte";
 export * from "./CommentWidget.svelte";
 export * from "./ImageChatWidget.svelte";
+export * from "./RecentCommentsWidget.svelte";
+export * from "./RecentDiscussionsWidget.svelte";
+export * from "./ReviewsSummaryWidget.svelte";
+export * from "./TopPagesWidget.svelte";
 export * from "./UserActivityFeedWidget.svelte";

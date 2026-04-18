@@ -1,29 +1,51 @@
-<div class="content">
-  <div class="welcome">
-    <h2>Comment Count</h2>
-    <p>Shows the comment count for a single page.</p>
-  </div>
-</div>
-
 <script lang="ts">
   import CommentCountWidget from "$lib/CommentCountWidget.svelte";
+  import type { FastCommentsCommentCountConfig } from "fastcomments-typescript";
+  import { theme } from "../theme";
+  import CodePanel from "../CodePanel.svelte";
+
+  let config: FastCommentsCommentCountConfig = $state({
+    tenantId: "demo",
+    urlId: "svelte-test"
+  });
+
+  $effect(() => { config.hasDarkBackground = $theme === "dark"; });
+
+  const snippet = `<script lang="ts">
+  import { CommentCountWidget } from "fastcomments-svelte";
   import type { FastCommentsCommentCountConfig } from "fastcomments-typescript";
 
   let config: FastCommentsCommentCountConfig = {
     tenantId: "demo",
     urlId: "svelte-test"
   };
+<\/script>
 
+<CommentCountWidget {config} />`;
 </script>
-<CommentCountWidget config={config}></CommentCountWidget>
 
-<style>
-    .content {
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-    }
+<div class="fc-demo">
+  <header class="fc-demo__head">
+    <div>
+      <div class="fc-demo__breadcrumb">Widgets <em>/ Comment Count</em></div>
+      <h1 class="fc-demo__title">Comment Count</h1>
+      <p class="fc-demo__subtitle">A low-weight count badge you can drop inline with any list item, post card, or
+        document link. Stays live as new comments come in.</p>
+    </div>
+    <div class="fc-demo__actions">
+      <span class="fc-tag fc-tag--brand">Tenant · demo</span>
+      <span class="fc-tag">urlId · svelte-test</span>
+    </div>
+  </header>
 
-    .welcome {
-        margin: 40px auto;
-        width: fit-content;
-    }
-</style>
+  <div class="fc-stage__panel" style="display: flex; align-items: center; gap: 14px;">
+    <span style="font-family: var(--fc-mono); font-size: 12px; color: var(--fc-ink-mute); letter-spacing: 0.2em; text-transform: uppercase;">
+      Count rendered →
+    </span>
+    <div style="font-family: var(--fc-body); font-size: 14px; color: var(--fc-ink);">
+      <CommentCountWidget config={config} />
+    </div>
+  </div>
+
+  <CodePanel label="comment-count-example · +page.svelte" code={snippet} />
+</div>

@@ -1,29 +1,46 @@
-<div class="content">
-  <div class="welcome">
-    <h2>Comment Widget</h2>
-    <p>The basic live comment widget.</p>
-  </div>
-</div>
-
 <script lang="ts">
   import CommentWidget from "$lib/CommentWidget.svelte";
+  import type { FastCommentsCommentWidgetConfig } from "fastcomments-typescript";
+  import { theme } from "../theme";
+  import CodePanel from "../CodePanel.svelte";
+
+  let config: FastCommentsCommentWidgetConfig = $state({
+    tenantId: "demo",
+    urlId: "svelte-test"
+  });
+
+  $effect(() => { config.hasDarkBackground = $theme === "dark"; });
+
+  const snippet = `<script lang="ts">
+  import CommentWidget from "fastcomments-svelte";
   import type { FastCommentsCommentWidgetConfig } from "fastcomments-typescript";
 
   let config: FastCommentsCommentWidgetConfig = {
     tenantId: "demo",
     urlId: "svelte-test"
   };
+<\/script>
 
+<CommentWidget {config} />`;
 </script>
-<CommentWidget config={config}></CommentWidget>
 
-<style>
-    .content {
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-    }
+<div class="fc-demo">
+  <header class="fc-demo__head">
+    <div>
+      <div class="fc-demo__breadcrumb">Widgets <em>/ Live Comment Widget</em></div>
+      <h1 class="fc-demo__title">Live Comment Widget</h1>
+      <p class="fc-demo__subtitle">The flagship live commenting widget. Replies, voting, moderation, media
+        attachments, and realtime sync all out of the box.</p>
+    </div>
+    <div class="fc-demo__actions">
+      <span class="fc-tag fc-tag--brand">Tenant · demo</span>
+      <span class="fc-tag">urlId · svelte-test</span>
+    </div>
+  </header>
 
-    .welcome {
-        margin: 40px auto;
-        width: fit-content;
-    }
-</style>
+  <div class="fc-stage__panel fc-stage__panel--light">
+    <CommentWidget config={config} />
+  </div>
+
+  <CodePanel label="comment-widget-example · +page.svelte" code={snippet} />
+</div>

@@ -1,29 +1,46 @@
-<div class="content">
-  <div class="welcome">
-    <h2>Image Chat</h2>
-    <p>Create live discussions around images. Select an area of an image to create a discussion.</p>
-  </div>
-</div>
-
 <script lang="ts">
   import ImageChatWidget from "$lib/ImageChatWidget.svelte";
+  import type { FastCommentsImageChatWidgetConfig } from "fastcomments-typescript";
+  import { theme } from "../theme";
+  import CodePanel from "../CodePanel.svelte";
+
+  let config: FastCommentsImageChatWidgetConfig = $state({
+    tenantId: "demo",
+    urlId: "svelte-test-image-chat"
+  });
+
+  $effect(() => { config.hasDarkBackground = $theme === "dark"; });
+
+  const snippet = `<script lang="ts">
+  import { ImageChatWidget } from "fastcomments-svelte";
   import type { FastCommentsImageChatWidgetConfig } from "fastcomments-typescript";
 
   let config: FastCommentsImageChatWidgetConfig = {
     tenantId: "demo",
     urlId: "svelte-test-image-chat"
   };
+<\/script>
 
+<ImageChatWidget {config} />`;
 </script>
-<ImageChatWidget config={config}></ImageChatWidget>
 
-<style>
-    .content {
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-    }
+<div class="fc-demo">
+  <header class="fc-demo__head">
+    <div>
+      <div class="fc-demo__breadcrumb">Widgets <em>/ Image Chat</em></div>
+      <h1 class="fc-demo__title">Image Chat</h1>
+      <p class="fc-demo__subtitle">Drag to select any region of an image and open a discussion pinned to that area.
+        Built for design reviews, bug triage, and creative collaboration.</p>
+    </div>
+    <div class="fc-demo__actions">
+      <span class="fc-tag fc-tag--brand">Tenant · demo</span>
+      <span class="fc-tag">urlId · svelte-test-image-chat</span>
+    </div>
+  </header>
 
-    .welcome {
-        margin: 40px auto;
-        width: fit-content;
-    }
-</style>
+  <div class="fc-stage__panel fc-stage__panel--light">
+    <ImageChatWidget config={config} />
+  </div>
+
+  <CodePanel label="image-chat-example · +page.svelte" code={snippet} />
+</div>

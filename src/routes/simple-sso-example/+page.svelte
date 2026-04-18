@@ -1,60 +1,86 @@
-<div class="content">
-  <div class="welcome">
-    <h2>Simple SSO Example</h2>
-    <p>FastComments has two different SSO integrations that we call Simple and Secure SSO. Simple SSO is designed to be
-      easy to use, but doesn't feature server-side validation.</p>
-    <p>This demonstrates having an async function that gets the user details and passes it to the comment widget. Their
-      account will automatically be created or updated.</p>
-  </div>
-</div>
-
 <script lang="ts">
   import CommentWidget from "$lib/CommentWidget.svelte";
   import type { FastCommentsCommentWidgetConfig, FastCommentsSSOSimple } from "fastcomments-typescript";
   import { onMount } from "svelte";
+  import { theme } from "../theme";
+  import CodePanel from "../CodePanel.svelte";
 
-  let config: FastCommentsCommentWidgetConfig = {
+  const snippet = `<script lang="ts">
+  import { CommentWidget } from "fastcomments-svelte";
+  import type { FastCommentsSSOSimple } from "fastcomments-typescript";
+  import { onMount } from "svelte";
+
+  let config = $state({
     tenantId: "demo",
     urlId: "svelte-test-simple-sso",
     simpleSSO: {
-      loginURL: "https://example.com/login", // can also use loginCallback etc
+      loginURL: "https://example.com/login",
       logoutURL: "https://example.com/logout"
     }
-  };
+  });
 
-  // this contains an object with userDataJSONBase64, which is a base64 version of FastCommentsSSOUserData
+  async function getUser(): Promise<FastCommentsSSOSimple> {
+    return {
+      username: "Someone",
+      email: "someone@somewhere.com",
+      avatar: "https://example.com/avatar.jpg"
+    };
+  }
+
+  onMount(async () => {
+    const user = await getUser();
+    config.simpleSSO = { ...config.simpleSSO, ...user };
+  });
+<\/script>
+
+<CommentWidget {config} />`;
+
+  let config: FastCommentsCommentWidgetConfig = $state({
+    tenantId: "demo",
+    urlId: "svelte-test-simple-sso",
+    simpleSSO: {
+      loginURL: "https://example.com/login",
+      logoutURL: "https://example.com/logout"
+    }
+  });
+
+  $effect(() => { config.hasDarkBackground = $theme === "dark"; });
+
+  let loaded = $state(false);
+
   async function getLoggedInUserInfo(): Promise<FastCommentsSSOSimple> {
-    // example service with server-side code here: https://github.com/FastComments/fastcomments-code-examples/tree/master/sso/nodejs
-    // start and run this example to make this component work.
-    // Replace this with your own API call to get the logged-in user.
     return Promise.resolve({
-      avatar: "https://staticm.fastcomments.com/1582299581264-69384190_3015192525174365_476457575596949504_o.jpg", // optional
-      email: "someone@somewhere.com", // optional
-      username: "Someone", // required
-      websiteUrl: "https://blog.fastcomments.com" // optional
+      avatar: "https://staticm.fastcomments.com/1582299581264-69384190_3015192525174365_476457575596949504_o.jpg",
+      email: "someone@somewhere.com",
+      username: "Someone",
+      websiteUrl: "https://blog.fastcomments.com"
     });
   }
 
   onMount(async () => {
     const userInfo = await getLoggedInUserInfo();
-    config.simpleSSO = {
-      ...config.simpleSSO, // so we retain loginURL/logoutURL config
-      ...userInfo
-    };
+    config.simpleSSO = { ...config.simpleSSO, ...userInfo };
+    loaded = true;
   });
-
 </script>
-<div class="controls">
+
+<div class="fc-demo">
+  <header class="fc-demo__head">
+    <div>
+      <div class="fc-demo__breadcrumb">Flows <em>/ Simple SSO</em></div>
+      <h1 class="fc-demo__title">Simple SSO</h1>
+      <p class="fc-demo__subtitle">The zero-backend identity flow. Just hand the widget a user object with a
+        username and optional metadata. The account is created or updated automatically on first comment.</p>
+    </div>
+    <div class="fc-demo__actions">
+      <span class="fc-tag fc-tag--brand">Mode · Simple</span>
+      <span class="fc-tag">User · {config.simpleSSO?.username ?? "…"}</span>
+    </div>
+  </header>
+
+  <div class="fc-stage__panel fc-stage__panel--light">
+    <CommentWidget config={config} />
+  </div>
+
+  <CodePanel label="simple-sso-example · +page.svelte" code={snippet} />
 </div>
-<CommentWidget config={config}></CommentWidget>
-
-<style>
-    .content {
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-    }
-
-    .welcome {
-        margin: 40px auto;
-        width: fit-content;
-    }
-</style>
