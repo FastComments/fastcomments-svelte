@@ -1,5 +1,9 @@
 # fastcomments-svelte
 
+## Live Demo
+
+Try every widget live at <https://fastcomments.com/commenting-system-for-svelte>.
+
 A set of Svelte widgets and wrappers for FastComments. `src/routes` contains runnable examples - simply run:
 
     npm install
