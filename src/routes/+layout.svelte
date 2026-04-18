@@ -1,5 +1,6 @@
 <script lang="ts">
   import { page } from "$app/stores";
+  import { base } from "$app/paths";
   import { theme, setTheme } from "./theme";
   import "./fastcomments-showcase.css";
 
@@ -24,12 +25,12 @@
     { href: "/secure-sso-example", label: "Secure SSO", kind: "flow", hint: "HMAC-signed identity" }
   ];
 
-  $: currentPath = $page.url.pathname;
+  $: currentPath = $page.url.pathname.replace(base, '') || '/';
 </script>
 
 <div class="fc-shell">
   <aside class="fc-rail">
-    <a class="fc-brand" href="/">
+    <a class="fc-brand" href="{base}/">
       <img class="fc-brand__logo fc-brand__logo--light" src="https://fastcomments.com/images/svg/v2/logo.svg" alt="FastComments" />
       <img class="fc-brand__logo fc-brand__logo--dark" src="https://fastcomments.com/images/svg/v2/logo_white.svg" alt="" aria-hidden="true" />
       <span class="fc-brand__wordmark">
@@ -45,7 +46,7 @@
           <a
             class="fc-nav__item"
             class:is-active={currentPath === item.href}
-            href={item.href}
+            href="{base}{item.href}"
           >
             <span class="fc-nav__item-label">{item.label}</span>
             <span class="fc-nav__item-hint">{item.hint}</span>
@@ -59,7 +60,7 @@
           <a
             class="fc-nav__item"
             class:is-active={currentPath === item.href}
-            href={item.href}
+            href="{base}{item.href}"
           >
             <span class="fc-nav__item-label">{item.label}</span>
             <span class="fc-nav__item-hint">{item.hint}</span>
