@@ -13,6 +13,14 @@ Then you can see all the widgets and edit them - for example to put in your own 
 
 TypeScript has been used so that you can inspect the config objects for each widget to see what options they take. 
 
+## Install
+
+[![npm](https://img.shields.io/npm/v/fastcomments-svelte?logo=npm&label=npm&color=cb3837)](https://www.npmjs.com/package/fastcomments-svelte)
+
+```bash
+npm install fastcomments-svelte
+```
+
 ## Quick Start
 
 ```svelte
